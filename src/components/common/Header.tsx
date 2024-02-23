@@ -1,19 +1,11 @@
-import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import logo from "../../assets/images/logo.png";
 import { FaSignInAlt, FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Category } from "../../models/category.model";
-import { fetchCategory } from "../../api/category.api";
+import { useCaateogry } from "../../hooks/useCategory";
 
 const Header = () => {
-  const [category, setCategory] = useState<Category[]>([]);
-
-  useEffect(() => {
-    fetchCategory().then((category) => {
-      setCategory(category);
-    });
-  }, []);
+  const { category } = useCaateogry();
 
   return (
     <HeaderStyle>
