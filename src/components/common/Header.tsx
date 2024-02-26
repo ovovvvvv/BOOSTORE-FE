@@ -1,13 +1,17 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import logo from "../../assets/images/logo.png";
 import { FaSignInAlt, FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useCaateogry } from "../../hooks/useCategory";
+import { useCategory } from "../../hooks/useCategory";
 import { useAuthStore } from "../../store/authStore";
 
-const Header = () => {
-  const { category } = useCaateogry();
+export default function Header() {
+  const { category } = useCategory();
+  const cate = category.map((item) => item.categoryId);
+  console.log("카테고리 어쩔건데", cate);
+
   const { isloggedIn, storeLogout } = useAuthStore();
+
   return (
     <HeaderStyle>
       <h1 className="logo">
@@ -18,28 +22,29 @@ const Header = () => {
       <nav className="category">
         <ul>
           {category.map((item) => (
-            <li key={item.category_id}>
+            <li key={item.categoryId}>
               <Link
                 to={
-                  item.category_id === null
+                  item.categoryId === null
                     ? "/books"
-                    : `/books?category_id=${item.category_id}`
+                    : `/books?categoryId=${item.categoryId}`
                 }
               >
-                {item.category_name}
+                {item.categoryName}
               </Link>
             </li>
           ))}
         </ul>
       </nav>
+
       <nav className="auth">
         {isloggedIn && (
           <ul>
             <li>
-              <Link to="/cart">장바구니</Link>
+              <Link to="/carts">장바구니</Link>
             </li>
             <li>
-              <Link to="/orderlist">주문 내역</Link>
+              <Link to="/orders">주문내역</Link>
             </li>
             <li>
               <button onClick={storeLogout}>로그아웃</button>
@@ -55,23 +60,22 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <a href="/signup">
+              <Link to="/join">
                 <FaRegUser />
                 회원가입
-              </a>
+              </Link>
             </li>
           </ul>
         )}
       </nav>
     </HeaderStyle>
   );
-};
+}
 
 const HeaderStyle = styled.header`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,7 +98,6 @@ const HeaderStyle = styled.header`
           font-weight: 600;
           text-decoration: none;
           color: ${({ theme }) => theme.color.text};
-
           &:hover {
             color: ${({ theme }) => theme.color.primary};
           }
@@ -128,11 +131,3 @@ const HeaderStyle = styled.header`
     }
   }
 `;
-
-export default Header;
-
-//  background-color: ${({ theme }) => theme.color.background};
-
-//   h1 {
-//     color: ${({ theme }) => theme.color.primary};
-//   }
