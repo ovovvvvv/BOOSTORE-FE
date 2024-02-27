@@ -5,6 +5,7 @@ import Title from "../common/Title";
 import { formatNumber } from "../../utils/format";
 import CheckIconButton from "./CheckIconButton";
 import { useMemo } from "react";
+import { useAlert } from "../../hooks/useAlert";
 
 interface Props {
   cart: Cart;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const CartItem = ({ cart, checkedItems, onCheck, onDelete }: Props) => {
+  const { showComfirm } = useAlert();
+
   // checkedItems 목록에 내가 있는지 판단 = checked
   const isChecked = useMemo(() => {
     return checkedItems.includes(cart.id);
@@ -25,8 +28,9 @@ const CartItem = ({ cart, checkedItems, onCheck, onDelete }: Props) => {
 
   const handleDelete = () => {
     // confirm ?
-
-    onDelete(cart.id);
+    showComfirm("정말 삭제하시겠습니까?", () => {
+      onDelete(cart.id);
+    });
   };
 
   return (
