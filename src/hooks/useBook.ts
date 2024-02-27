@@ -2,11 +2,21 @@ import { useEffect, useState } from "react";
 import { BookDetail } from "../models/book.model";
 import { fetchBook } from "../api/books.api";
 import { likeBook, unlikeBook } from "../api/books.api";
+import { useAuthStore } from "../store/authStore";
+import { useAlert } from "./useAlert";
 
 export const useBook = (bookId: string | undefined) => {
   const [book, setBook] = useState<BookDetail | null>(null);
+  const { isloggedIn } = useAuthStore();
+  const showAlert = useAlert();
 
   const likeToggle = () => {
+    //권한 확인
+    if (!isloggedIn) {
+      showAlert("로그인이 필요한 기능입니다.");
+      return;
+    }
+
     if (!book) return;
 
     if (book.liked) {
