@@ -36,20 +36,23 @@ const CartItem = ({ cart, checkedItems, onCheck, onDelete }: Props) => {
   return (
     <CartItemStyle>
       <div className="info">
-        <CheckIconButton isChecked={isChecked} onCheck={handleCheck} />
+        <div className="check">
+          <CheckIconButton isChecked={isChecked} onCheck={handleCheck} />
+        </div>
 
-        <Title size="medium" color="text">
-          {cart.title}
-        </Title>
-        <p className="summary">{cart.summary}</p>
-        <p className="price">{formatNumber(cart.price)}원</p>
-        <p className="quantity">수량: {cart.quantity}권</p>
+        <div>
+          <Title size="medium" color="text">
+            {cart.title}
+          </Title>
+          <p className="summary">{cart.summary}</p>
+          <p className="price">{formatNumber(cart.price)}원</p>
+          <p className="quantity">수량: {cart.quantity}권</p>
+        </div>
       </div>
-      <div>
-        <Button size="medium" scheme="normal" onClick={handleDelete}>
-          장바구니 삭제
-        </Button>
-      </div>
+
+      <Button size="medium" scheme="normal" onClick={handleDelete}>
+        장바구니 삭제
+      </Button>
     </CartItemStyle>
   );
 };
@@ -59,11 +62,23 @@ const CartItemStyle = styled.div`
   justify-content: space-between;
   align-items: start;
   border: 1px solid ${({ theme }) => theme.color.border};
+  border-radius: ${({ theme }) => theme.borderRadius.default};
   padding: 12px;
 
-  p {
-    padding: 0 0 8px 0;
-    margin: 0;
+  .info {
+    display: flex;
+    align-items: start;
+    flex: 1;
+
+    p {
+      padding: 0 0 8px 0;
+      margin: 0;
+    }
+
+    .check {
+      width: 40px;
+      flex-shrink: 0;
+    }
   }
 `;
 

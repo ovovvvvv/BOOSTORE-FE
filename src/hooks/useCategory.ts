@@ -10,7 +10,6 @@ export const useCategory = () => {
 
   const setActive = () => {
     const params = new URLSearchParams(locaton.search);
-
     if (params.get(QUERYSTRING.CATEGORY_ID)) {
       setCategory((prev) => {
         return prev.map((item) => {

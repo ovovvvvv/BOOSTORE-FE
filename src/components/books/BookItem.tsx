@@ -10,7 +10,6 @@ interface Props {
   book: Book;
   view?: ViewMode;
 }
-
 const BookItem = ({ book, view }: Props) => {
   return (
     <BookItemStyle view={view}>

@@ -14,12 +14,13 @@ const bookInfoList = [
   {
     label: "카테고리",
     key: "categoryName",
-    filter: (book: IBookDetail) => {
-      <Link to={`/books?categoryId${book.categoryId}`}>
+    filter: (book: IBookDetail) => (
+      <Link to={`/books?categoryId=${book.categoryId}`}>
         {book.categoryName}
-      </Link>;
-    },
+      </Link>
+    ),
   },
+
   {
     label: "포맷",
     key: "form",
