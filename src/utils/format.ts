@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export const formatNumber = (number: number) => {
+export const formatNumber = (number: number): string => {
   return number.toLocaleString();
 };
 
