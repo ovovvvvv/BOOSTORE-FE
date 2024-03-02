@@ -6,7 +6,7 @@ interface Props {
   totalPrice: number;
 }
 
-const CartSummary = ({ totalQuantity, totalPrice }) => {
+const CartSummary = ({ totalQuantity, totalPrice }: Props) => {
   return (
     <CartSummaryStyle>
       <h1>주문요약</h1>

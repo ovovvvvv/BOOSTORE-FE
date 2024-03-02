@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Order } from "../models/order.model";
-import { fetchOrders } from "../api/order.api";
+import { OrderListItem } from "../models/order.model";
+import { fetchOrder, fetchOrders } from "../api/order.api";
 
 export const useOrders = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderListItem[]>([]);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
   useEffect(() => {
     fetchOrders().then((orders) => {
@@ -11,5 +12,30 @@ export const useOrders = () => {
     });
   }, []);
 
-  return { orders };
+  const selectOrderItem = (orderId: number) => {
+    console.log("주문 아이디", orderId);
+    console.log("주문 목록", orders);
+    //요청 방어
+    if (orders.filter((item) => item.id === orderId)[0].detail) {
+      setSelectedItemId(orderId);
+      return;
+    }
+
+    fetchOrder(orderId).then((orderDetail) => {
+      setSelectedItemId(orderId);
+      setOrders(
+        orders.map((item) => {
+          if (item.id === orderId) {
+            return {
+              ...item,
+              detail: orderDetail,
+            };
+          }
+          return item;
+        })
+      );
+    });
+  };
+
+  return { orders, selectedItemId, selectOrderItem };
 };

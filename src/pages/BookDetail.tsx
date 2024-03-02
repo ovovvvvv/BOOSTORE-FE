@@ -66,9 +66,13 @@ const BookDetail = () => {
             {book.title}
           </Title>
           {bookInfoList.map((item) => (
-            <dl>
+            <dl key={item.label}>
               <dt>{item.label}</dt>
-              <dd>{item.filter ? item.filter(book) : book[item.key]}</dd>
+              <dd>
+                {item.filter
+                  ? item.filter(book as IBookDetail)
+                  : (book as IBookDetail)[item.key as keyof IBookDetail]}{" "}
+              </dd>
             </dl>
           ))}
           <p className="summary">{book.summary}</p>

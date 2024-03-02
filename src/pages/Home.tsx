@@ -1,13 +1,21 @@
-import Title from "../components/common/Title";
-import Button from "../components/common/Button";
-import InputText from "../components/common/InputText";
+import { useEffect } from "react";
+import styled from "styled-components";
+import Title from "@/components/common/Title";
 
 const Home = () => {
+  useEffect(() => {}, []);
   return (
-    <>
-      <div>home body</div>
-    </>
+    <HomeStyle>
+      <Title size="large" color="text">
+        내용
+      </Title>
+      <h1>Home</h1>
+    </HomeStyle>
   );
 };
+
+const HomeStyle = styled.div`
+  color: ${({ theme }) => theme.color.secondary};
+`;
 
 export default Home;

@@ -11,8 +11,9 @@ interface Props {
 }
 
 const BooksList = ({ books }: Props) => {
-  const [view, setView] = useState<ViewMode>("grid");
   const location = useLocation();
+  const [view, setView] = useState<ViewMode>("grid");
+  const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -21,9 +22,23 @@ const BooksList = ({ books }: Props) => {
     }
   }, [location.search]);
 
+  useEffect(() => {
+    const categoryId = new URLSearchParams(location.search).get(
+      QUERYSTRING.CATEGORY_ID
+    );
+    if (categoryId !== null) {
+      const filtered = books.filter(
+        (book) => book.categoryId === parseInt(categoryId)
+      );
+      setFilteredBooks(filtered);
+    } else {
+      setFilteredBooks(books);
+    }
+  }, [location.search, books]);
+
   return (
     <BooksListStyle view={view}>
-      {books?.map((item) => (
+      {filteredBooks?.map((item) => (
         <BookItem key={item.id} book={item} view={view} />
       ))}
     </BooksListStyle>

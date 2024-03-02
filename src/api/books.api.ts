@@ -15,7 +15,6 @@ interface FetchBooksResponse {
 }
 
 export const fetchBooks = async (params: FetchBooksParams) => {
-  console.log("params 있나요", params);
   try {
     const response = await httpClient.get<FetchBooksResponse>("/books", {
       params: params,

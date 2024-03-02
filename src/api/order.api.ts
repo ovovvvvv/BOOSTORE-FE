@@ -1,17 +1,15 @@
 import { Order, OrderSheet } from "../models/order.model";
-import { httpClient } from "./http";
+import { httpClient, requestHandler } from "./http";
 
+// http.ts 에서 만든 httpClient를 사용할 수 있습니다.
 export const order = async (orderData: OrderSheet) => {
-  const response = await httpClient.post("/orders", orderData);
-  return response.data;
+  return requestHandler("post", "/orders", orderData);
 };
 
 export const fetchOrders = async () => {
-  const response = await httpClient.get<Order[]>("/orders");
-  return response.data;
+  return await requestHandler("get", "/orders");
 };
 
 export const fetchOrder = async (orderId: number) => {
-  const response = await httpClient.get<Order>(`/orders/${orderId}`);
-  return response.data;
+  return await requestHandler("get", `/orders/${orderId}`);
 };
