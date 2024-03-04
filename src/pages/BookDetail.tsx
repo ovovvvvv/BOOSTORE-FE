@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
 import AddToCart from "../components/book/AddToCart";
+import BookReview from "@/components/book/BookReview";
 
 const bookInfoList = [
   {
@@ -51,7 +52,7 @@ const bookInfoList = [
 
 const BookDetail = () => {
   const { bookId } = useParams();
-  const { book, likeToggle } = useBook(bookId);
+  const { book, likeToggle, reviews, addReview } = useBook(bookId);
 
   if (!book) return null;
 
@@ -86,6 +87,9 @@ const BookDetail = () => {
 
         <Title size="medium">목차</Title>
         <p className="detail">{book.contents}</p>
+
+        <Title size="medium">리뷰</Title>
+        <BookReview reviews={reviews} onAdd={addReview} />
       </div>
     </BookDetailStyle>
   );

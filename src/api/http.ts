@@ -40,7 +40,7 @@ export const httpClient = createClient();
 // 공통 요청 부분
 type RequestMethod = "get" | "post" | "put" | "delete";
 
-export const requestHandler = async <T>(
+export const requestHandler = async <T = undefined>(
   method: RequestMethod,
   url: string,
   payload?: T
@@ -63,5 +63,29 @@ export const requestHandler = async <T>(
   }
   return response.data;
 };
+
+// export const requestHandler = async <R = undefined, T = undefined>(
+//   method: RequestMethod,
+//   url: string,
+//   payload?: T
+// ) => {
+//   let response;
+
+//   switch (method) {
+//     case "post":
+//       response = await httpClient.post<R>(url, payload);
+//       break;
+//     case "get":
+//       response = await httpClient.get<R>(url);
+//       break;
+//     case "put":
+//       response = await httpClient.put<R>(url, payload);
+//       break;
+//     case "delete":
+//       response = await httpClient.delete<R>(url);
+//       break;
+//   }
+//   return response.data;
+// };
 
 // switch 문도 리팩토링의 대상이 될 수 있으니 추후에 리팩토링 해보자
