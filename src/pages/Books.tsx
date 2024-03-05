@@ -5,11 +5,19 @@ import BooksList from "../components/books/BooksList";
 import BooksEmpty from "../components/books/BooksEmpty";
 import Pagination from "../components/books/Pagination";
 import BooksViewSwitcher from "../components/books/BooksViewSwitcher";
-import { useBooks } from "../hooks/useBooks";
 import Loading from "@/components/common/Loading";
+import { useBooksInfinite } from "@/hooks/useBooksinfinite";
+import Button from "@/components/common/Button";
 
 const Books = () => {
-  const { books = [], pagination, isEmpty, isBooksLoading } = useBooks();
+  const {
+    books = [],
+    pagination,
+    isEmpty,
+    isBooksLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useBooksInfinite();
 
   if (isEmpty) {
     return <BooksEmpty />;
@@ -27,7 +35,18 @@ const Books = () => {
           <BooksViewSwitcher />
         </div>
         <BooksList books={books} />
-        <Pagination pagination={pagination} />
+        {/* <Pagination pagination={pagination} /> */}
+
+        <div className="more">
+          <Button
+            size="medium"
+            scheme="normal"
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage}
+          >
+            {hasNextPage ? "더보기" : "마지막 도서입니다."}
+          </Button>
+        </div>
       </BookStyle>
     </>
   );
