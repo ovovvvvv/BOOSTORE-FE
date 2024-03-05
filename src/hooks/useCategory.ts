@@ -6,10 +6,10 @@ import { QUERYSTRING } from "../constants/querystring";
 
 export const useCategory = () => {
   const [category, setCategory] = useState<Category[]>([]);
-  const locaton = useLocation();
+  const location = useLocation();
 
   const setActive = () => {
-    const params = new URLSearchParams(locaton.search);
+    const params = new URLSearchParams(location.search);
     if (params.get(QUERYSTRING.CATEGORY_ID)) {
       setCategory((prev) => {
         return prev.map((item) => {
@@ -50,7 +50,7 @@ export const useCategory = () => {
 
   useEffect(() => {
     setActive();
-  }, [locaton.search]);
+  }, [location.search]);
 
   return { category };
 };
