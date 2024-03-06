@@ -57,7 +57,8 @@
     "@faker-js/faker": "^8.4.1",
     "@types/react-slick": "^0.23.13",
     "craco-alias": "^3.0.1",
-    "msw": "^2.2.2"
+    "msw": "^2.2.2",
+    "typescript-styled-plugin": "^0.18.3"
   },
   "msw": {
     "workerDirectory": [
