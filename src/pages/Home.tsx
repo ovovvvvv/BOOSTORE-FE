@@ -4,17 +4,21 @@ import Title from "@/components/common/Title";
 import MainReview from "@/components/main/MainReview";
 import { useMain } from "@/hooks/useMain";
 import MainNewBooks from "@/components/main/MainNewBooks";
+import MainBest from "@/components/main/MainBest";
+import Banner from "@/components/common/banner/Banner";
 
 const Home = () => {
-  const { reviews, newBooks } = useMain();
+  const { reviews, newBooks, bestBooks, banners } = useMain();
   useEffect(() => {}, []);
   return (
     <HomeStyle>
       {/* 배너 */}
+      <Banner banners={banners} />
 
       {/* 베스트 셀러 */}
       <section className="section">
         <Title size="large">베스트 셀러</Title>
+        <MainBest books={bestBooks} />
       </section>
       {/* 신간 */}
       <section className="section">
@@ -31,7 +35,9 @@ const Home = () => {
 };
 
 const HomeStyle = styled.div`
-  color: ${({ theme }) => theme.color.secondary};
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 `;
 
 export default Home;
